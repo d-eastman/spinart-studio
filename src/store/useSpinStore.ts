@@ -1,12 +1,13 @@
 import { create } from 'zustand'
 import type { ToolType, BrushShape, PaintMode } from '@/engine/types'
-import { VISCOSITY_LEVELS } from '@/engine/types'
 import { PALETTE } from '@/utils/colorUtils'
 
 interface SpinState {
   // Color
   color: string
   setColor: (color: string) => void
+  customColor: string
+  setCustomColor: (color: string) => void
 
   // Paint mode
   paintMode: PaintMode
@@ -24,9 +25,7 @@ interface SpinState {
   brushShape: BrushShape
   setBrushShape: (s: BrushShape) => void
 
-  // Viscosity
-  viscosityIndex: number
-  setViscosityIndex: (i: number) => void
+  // Viscosity (fixed — Acrylic default)
   viscosity: number
 
   // Wheel spin
@@ -57,27 +56,27 @@ export const useSpinStore = create<SpinState>((set, get) => ({
   // Color
   color: PALETTE[0],
   setColor: (color) => set({ color }),
+  customColor: '#6b21a8',
+  setCustomColor: (color) => set({ color, customColor: color }),
 
   // Paint mode
   paintMode: 'drop',
   setPaintMode: (paintMode) => set({ paintMode }),
 
   // Tool
-  toolType: 'drip',
+  toolType: 'drop',
   setToolType: (toolType) => set({ toolType }),
 
   // Drop size
-  toolSize: 6,
+  toolSize: 20,
   setToolSize: (toolSize) => set({ toolSize }),
 
   // Brush shape
   brushShape: 'round',
   setBrushShape: (brushShape) => set({ brushShape }),
 
-  // Viscosity
-  viscosityIndex: 0,
-  setViscosityIndex: (viscosityIndex) => set({ viscosityIndex, viscosity: VISCOSITY_LEVELS[viscosityIndex].mu }),
-  viscosity: VISCOSITY_LEVELS[0].mu,
+  // Viscosity (fixed — Acrylic)
+  viscosity: 0.12,
 
   // Spin
   rpm: 25,

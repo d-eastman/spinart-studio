@@ -21,8 +21,9 @@ export function spawnParticles(opts: {
   direction: 1 | -1
   wheelRadius: number
   brushShape: BrushShape
+  lowOpacity?: boolean
 }): Particle[] {
-  const { wx, wy, cx, cy, count, spreadRadius, toolSize, color, omega, direction, wheelRadius, brushShape } = opts
+  const { wx, wy, cx, cy, count, spreadRadius, toolSize, color, omega, direction, wheelRadius, brushShape, lowOpacity } = opts
   const rgb: RGB = hexToRgb(color)
   const result: Particle[] = []
 
@@ -56,7 +57,7 @@ export function spawnParticles(opts: {
       vx: surfVx + Math.cos(spreadAngle) * spreadSpeed,
       vy: surfVy + Math.sin(spreadAngle) * spreadSpeed,
       radius: toolSize * (0.4 + Math.random() * 0.6) * 0.5,
-      alpha: 0.7 + Math.random() * 0.3,
+      alpha: lowOpacity ? 0.2 + Math.random() * 0.3 : 0.7 + Math.random() * 0.3,
       rgb,
       age: 0,
       maxAge: 60 + Math.random() * 60,

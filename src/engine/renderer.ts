@@ -19,6 +19,85 @@ function drawShape(ctx: CanvasRenderingContext2D, x: number, y: number, r: numbe
       ctx.fillStyle = color
       ctx.fillRect(x - r * 1.4, y - r * 0.7, r * 2.8, r * 1.4)
       break
+    case 'star':
+      ctx.beginPath()
+      for (let i = 0; i < 10; i++) {
+        const angle = (i / 10) * Math.PI * 2 - Math.PI / 2
+        const dist = i % 2 === 0 ? r : r * 0.4
+        const px = x + Math.cos(angle) * dist
+        const py = y + Math.sin(angle) * dist
+        if (i === 0) ctx.moveTo(px, py)
+        else ctx.lineTo(px, py)
+      }
+      ctx.closePath()
+      ctx.fillStyle = color
+      ctx.fill()
+      break
+    case 'heart': {
+      ctx.beginPath()
+      const hr = r * 0.55
+      ctx.moveTo(x, y + r * 0.3)
+      ctx.bezierCurveTo(x, y - r * 0.4, x - r, y - r * 0.4, x - r, y + r * 0.1)
+      ctx.bezierCurveTo(x - r, y + r * 0.55, x, y + r, x, y + r)
+      ctx.bezierCurveTo(x, y + r, x + r, y + r * 0.55, x + r, y + r * 0.1)
+      ctx.bezierCurveTo(x + r, y - r * 0.4, x, y - r * 0.4, x, y + r * 0.3)
+      ctx.closePath()
+      ctx.fillStyle = color
+      ctx.fill()
+      break
+    }
+    case 'triangle':
+      ctx.beginPath()
+      ctx.moveTo(x, y - r)
+      ctx.lineTo(x + r * 0.866, y + r * 0.5)
+      ctx.lineTo(x - r * 0.866, y + r * 0.5)
+      ctx.closePath()
+      ctx.fillStyle = color
+      ctx.fill()
+      break
+    case 'diamond':
+      ctx.beginPath()
+      ctx.moveTo(x, y - r)
+      ctx.lineTo(x + r * 0.7, y)
+      ctx.lineTo(x, y + r)
+      ctx.lineTo(x - r * 0.7, y)
+      ctx.closePath()
+      ctx.fillStyle = color
+      ctx.fill()
+      break
+    case 'plus': {
+      const pw = r * 0.35
+      ctx.fillStyle = color
+      ctx.fillRect(x - pw, y - r, pw * 2, r * 2)
+      ctx.fillRect(x - r, y - pw, r * 2, pw * 2)
+      break
+    }
+    case 'splatter': {
+      ctx.fillStyle = color
+      ctx.beginPath()
+      ctx.arc(x, y, r * 0.5, 0, Math.PI * 2)
+      ctx.fill()
+      const blobs = [
+        [0.7, -0.5, 0.25], [-0.6, 0.6, 0.2], [0.3, 0.8, 0.22],
+        [-0.8, -0.3, 0.18], [0.9, 0.2, 0.15], [-0.2, -0.9, 0.2],
+        [0.5, 0.5, 0.17], [-0.5, -0.7, 0.15],
+      ]
+      for (const [bx, by, br] of blobs) {
+        ctx.beginPath()
+        ctx.arc(x + bx * r, y + by * r, br * r, 0, Math.PI * 2)
+        ctx.fill()
+      }
+      break
+    }
+    case 'slash': {
+      ctx.save()
+      ctx.translate(x, y)
+      ctx.rotate(-Math.PI / 4)
+      ctx.fillStyle = color
+      ctx.fillRect(-r * 0.15, -r, r * 0.3, r * 2)
+      ctx.restore()
+      break
+    }
     case 'round':
     default:
       ctx.beginPath()

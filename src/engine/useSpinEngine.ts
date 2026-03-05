@@ -86,24 +86,27 @@ export function useSpinEngine(
       const s = storeRef.current
       if (!workerRef.current) { rafRef.current = requestAnimationFrame(loop); return }
 
-      // Continuous pour (drop mode only)
+      // Continuous drop/spray (drop mode, not line tool)
       if (s.paintMode === 'drop' && isPouringRef.current && pourPosRef.current) {
         const tool = TOOLS[s.toolType]
-        const holdCount = tool.holdCount
-        if (holdCount > 0) {
+        if (tool.type === 'line') {
+          // Line tool: stamp directly onto settled bitmap
+          lineStampAt(pourPosRef.current.x, pourPosRef.current.y)
+        } else if (tool.holdCount > 0) {
           const ps = spawnParticles({
             wx: pourPosRef.current.x,
             wy: pourPosRef.current.y,
             cx: size / 2,
             cy: size / 2,
-            count: holdCount,
-            spreadRadius: s.toolSize,
-            toolSize: s.toolSize,
+            count: tool.holdCount,
+            spreadRadius: tool.type === 'spray' ? s.toolSize * 1.5 : s.toolSize,
+            toolSize: tool.type === 'spray' ? s.toolSize * 0.3 : s.toolSize,
             color: s.color,
             omega: s.omega,
             direction: s.direction,
             wheelRadius: size / 2,
             brushShape: s.brushShape,
+            lowOpacity: tool.type === 'spray',
           })
           if (ps.length > 0) {
             const spawnMsg: WorkerInMessage = { type: 'SPAWN', particles: ps }
@@ -172,19 +175,29 @@ export function useSpinEngine(
     )
   }
 
-  function spawnAt(x: number, y: number, count: number) {
+  function lineStampAt(x: number, y: number) {
+    const s = storeRef.current
+    if (!rendererRef.current) return
+    const rgb = hexToRgb(s.color)
+    rendererRef.current.stampBrush(
+      x, y, s.toolSize * 0.5, s.brushShape, rgb, 0.9, wheelAngleRef.current,
+    )
+  }
+
+  function spawnAt(x: number, y: number, count: number, isSpray = false) {
     const s = storeRef.current
     const ps = spawnParticles({
       wx: x, wy: y,
       cx: size / 2, cy: size / 2,
       count,
-      spreadRadius: s.toolSize,
-      toolSize: s.toolSize,
+      spreadRadius: isSpray ? s.toolSize * 1.5 : s.toolSize,
+      toolSize: isSpray ? s.toolSize * 0.3 : s.toolSize,
       color: s.color,
       omega: s.omega,
       direction: s.direction,
       wheelRadius: size / 2,
       brushShape: s.brushShape,
+      lowOpacity: isSpray,
     })
     if (ps.length > 0 && workerRef.current) {
       workerRef.current.postMessage({ type: 'SPAWN', particles: ps } as WorkerInMessage)
@@ -202,9 +215,15 @@ export function useSpinEngine(
     const s = storeRef.current
     if (s.paintMode === 'brush') {
       brushStampAt(x, y)
+    } else if (s.toolType === 'line') {
+      lineStampAt(x, y)
     } else {
       const tool = TOOLS[s.toolType]
-      spawnAt(x, y, tool.clickCount)
+      if (tool.type === 'spray') {
+        spawnAt(x, y, tool.clickCount, true)
+      } else {
+        spawnAt(x, y, tool.clickCount, false)
+      }
     }
     ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
   // eslint-disable-next-line react-hooks/exhaustive-deps

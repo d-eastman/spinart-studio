@@ -35,18 +35,25 @@ export type PaintMode = 'drop' | 'brush'
 
 // ─── Brush Shape ─────────────────────────────────────────────────────────────
 
-export type BrushShape = 'round' | 'hollowCircle' | 'square' | 'rectangle'
+export type BrushShape = 'round' | 'hollowCircle' | 'square' | 'rectangle' | 'star' | 'heart' | 'triangle' | 'diamond' | 'plus' | 'splatter' | 'slash'
 
-export const BRUSH_SHAPES: { type: BrushShape; label: string }[] = [
-  { type: 'round',        label: 'Round' },
-  { type: 'hollowCircle', label: 'Ring' },
-  { type: 'square',       label: 'Square' },
-  { type: 'rectangle',    label: 'Rect' },
+export const BRUSH_SHAPES: { type: BrushShape; label: string; icon: string }[] = [
+  { type: 'round',        label: 'Round',    icon: '\u25CF' },
+  { type: 'hollowCircle', label: 'Ring',     icon: '\u25CB' },
+  { type: 'square',       label: 'Square',   icon: '\u25A0' },
+  { type: 'rectangle',    label: 'Rect',     icon: '\u25AC' },
+  { type: 'star',         label: 'Star',     icon: '\u2605' },
+  { type: 'heart',        label: 'Heart',    icon: '\u2665' },
+  { type: 'triangle',     label: 'Triangle', icon: '\u25B2' },
+  { type: 'diamond',      label: 'Diamond',  icon: '\u25C6' },
+  { type: 'plus',         label: 'Plus',     icon: '\u271A' },
+  { type: 'splatter',     label: 'Splat',    icon: '\u2740' },
+  { type: 'slash',        label: 'Slash',    icon: '\u2571' },
 ]
 
 // ─── Tool ────────────────────────────────────────────────────────────────────
 
-export type ToolType = 'drip' | 'stream' | 'pour' | 'splash'
+export type ToolType = 'drop' | 'line' | 'spray' | 'splash'
 
 export interface ToolConfig {
   type: ToolType
@@ -61,9 +68,9 @@ export interface ToolConfig {
 }
 
 export const TOOLS: Record<ToolType, ToolConfig> = {
-  drip:   { type: 'drip',   clickCount: 8,  holdCount: 2, defaultSize: 6,  label: 'Drip',   icon: '💧' },
-  stream: { type: 'stream', clickCount: 4,  holdCount: 1, defaultSize: 3,  label: 'Stream', icon: '〰️' },
-  pour:   { type: 'pour',   clickCount: 20, holdCount: 3, defaultSize: 10, label: 'Pour',   icon: '🫗' },
+  drop:   { type: 'drop',   clickCount: 8,  holdCount: 2, defaultSize: 10, label: 'Drop',   icon: '💧' },
+  line:   { type: 'line',   clickCount: 0,  holdCount: 0, defaultSize: 10, label: 'Line',   icon: '✏️' },
+  spray:  { type: 'spray',  clickCount: 15, holdCount: 6, defaultSize: 16, label: 'Spray',  icon: '💨' },
   splash: { type: 'splash', clickCount: 60, holdCount: 0, defaultSize: 16, label: 'Splash', icon: '💦' },
 }
 

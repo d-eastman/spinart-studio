@@ -28,6 +28,24 @@ export function blendColors(a: RGB, b: RGB, t: number): RGB {
 }
 
 export const PALETTE: string[] = [
-  '#ff4d6d', '#ffd166', '#06d6a0', '#118ab2', '#9b5de5',
-  '#f77f00', '#ffffff', '#a8dadc', '#e9c46a', '#264653',
+  // Reds & pinks
+  '#ff4d6d', '#e63946', '#d84373', '#ff006e',
+  // Oranges
+  '#f77f00', '#fb8500', '#ff9e00',
+  // Yellows
+  '#ffd166', '#e9c46a', '#ffea00',
+  // Greens
+  '#06d6a0', '#2dc653', '#007f5f', '#80b918',
+  // Blues
+  '#118ab2', '#0077b6', '#00b4d8', '#48cae4',
+  // Purples & violets
+  '#9b5de5', '#7209b7', '#560bad', '#b5179e',
+  // Browns & earth tones
+  '#a47148', '#6f4e37',
+  // Neutrals & metallics
+  '#ffffff', '#c0c0c0', '#808080', '#2d2222',
+  // Teals & cyans
+  '#a8dadc', '#40e0d0', '#20b2aa',
+  // Pastels
+  '#ffafcc', '#bde0fe', '#caffbf',
 ]
