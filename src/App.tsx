@@ -5,7 +5,7 @@ import { SpeedControls } from '@/components/SpeedControls'
 import { useSpinStore } from '@/store/useSpinStore'
 
 function TopBar() {
-  const { paintMode, setPaintMode, triggerClear, triggerSave, bgColor, setBgColor } = useSpinStore()
+  const { paintMode, setPaintMode, triggerClear, triggerSave, triggerSaveGif, bgColor, setBgColor } = useSpinStore()
 
   return (
     <nav aria-label="Main controls" style={{
@@ -117,7 +117,28 @@ function TopBar() {
         onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 4px 12px rgba(216, 67, 115, 0.5)' }}
         onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 2px 8px rgba(216, 67, 115, 0.3)' }}
       >
-        SAVE
+        PNG
+      </button>
+      <button
+        onClick={triggerSaveGif}
+        aria-label="Save spinning animation as GIF"
+        style={{
+          padding: '8px 18px',
+          border: '2px solid #c77a00',
+          borderRadius: 20,
+          background: 'transparent',
+          color: '#c77a00',
+          fontFamily: 'Space Mono, monospace',
+          fontSize: 13,
+          letterSpacing: 1,
+          fontWeight: 'bold',
+          cursor: 'pointer',
+          transition: 'all 0.15s',
+        }}
+        onMouseEnter={(e) => { e.currentTarget.style.background = '#c77a00'; e.currentTarget.style.color = 'white' }}
+        onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#c77a00' }}
+      >
+        GIF
       </button>
     </nav>
   )
@@ -150,7 +171,7 @@ export default function App() {
         minHeight: 0,
       }}>
         {/* Left panel — colors */}
-        <div className="side-panel" role="region" aria-label="Color palette">
+        <div className="side-panel" role="region" aria-label="Color palette" style={{ maxWidth: 170 }}>
           <ColorPalette />
         </div>
 
@@ -158,7 +179,7 @@ export default function App() {
         <WheelCanvas />
 
         {/* Right panel — tools */}
-        <div className="side-panel" role="region" aria-label="Tool settings">
+        <div className="side-panel" role="region" aria-label="Tool settings" style={{ maxWidth: 280, minWidth: 220 }}>
           <ToolPicker />
         </div>
       </div>

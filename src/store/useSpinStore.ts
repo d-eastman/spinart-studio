@@ -46,6 +46,8 @@ interface SpinState {
   triggerClear: () => void
   saveSignal: number
   triggerSave: () => void
+  saveGifSignal: number
+  triggerSaveGif: () => void
 }
 
 function rpmToOmega(rpm: number): number {
@@ -54,7 +56,7 @@ function rpmToOmega(rpm: number): number {
 
 export const useSpinStore = create<SpinState>((set, get) => ({
   // Color
-  color: PALETTE[0],
+  color: PALETTE[0].hex,
   setColor: (color) => set({ color }),
   customColor: '#6b21a8',
   setCustomColor: (color) => set({ color, customColor: color }),
@@ -96,4 +98,6 @@ export const useSpinStore = create<SpinState>((set, get) => ({
   triggerClear: () => set((s) => ({ clearSignal: s.clearSignal + 1 })),
   saveSignal: 0,
   triggerSave: () => set((s) => ({ saveSignal: s.saveSignal + 1 })),
+  saveGifSignal: 0,
+  triggerSaveGif: () => set((s) => ({ saveGifSignal: s.saveGifSignal + 1 })),
 }))

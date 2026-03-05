@@ -160,6 +160,17 @@ export function useSpinEngine(
       .catch(console.error)
   }, [saveSignal, size])
 
+  // ── Save GIF signal ──────────────────────────────────────────────────────
+  const { saveGifSignal } = useSpinStore()
+  useEffect(() => {
+    if (saveGifSignal === 0) return
+    const s = storeRef.current
+    rendererRef.current
+      ?.exportGif(s.bgColor, size)
+      .then((blob) => downloadBlob(blob, timestampedFilename('spinart', 'gif')))
+      .catch(console.error)
+  }, [saveGifSignal, size])
+
   // ── Pointer helpers ───────────────────────────────────────────────────────
   function inWheel(x: number, y: number) {
     const cx = size / 2, cy = size / 2, r = size / 2

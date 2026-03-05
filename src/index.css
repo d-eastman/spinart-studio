@@ -42,7 +42,6 @@ body {
   border: 1px solid var(--border);
   box-shadow: 0 4px 16px rgba(0,0,0,0.04);
   min-width: 130px;
-  max-width: 170px;
 }
 
 /* Focus indicators — WCAG 2.4.7 */
@@ -84,4 +83,31 @@ input[type='range']::-moz-range-thumb {
   cursor: pointer;
   border: none;
   box-shadow: 0 2px 6px rgba(216, 67, 115, 0.4);
+}
+
+/* Color swatch tooltip */
+.color-swatch-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.color-tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: white;
+  font-size: 10px;
+  font-family: 'Space Mono', monospace;
+  padding: 3px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.1s;
+  z-index: 10;
+}
+.color-swatch-wrap:hover .color-tooltip {
+  opacity: 1;
 }

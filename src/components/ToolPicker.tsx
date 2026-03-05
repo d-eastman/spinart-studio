@@ -14,7 +14,7 @@ export function ToolPicker() {
       {paintMode === 'drop' && (
         <div>
           <div className="section-label">Tool</div>
-          <div role="radiogroup" aria-label="Drip tool" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4 }}>
+          <div role="radiogroup" aria-label="Drip tool" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 4 }}>
             {TOOL_ORDER.map((t) => {
               const cfg = TOOLS[t]
               const active = toolType === t
@@ -30,20 +30,20 @@ export function ToolPicker() {
                     border: `2px solid ${active ? '#d84373' : '#c8bfb6'}`,
                     color: active ? 'white' : '#2d2222',
                     fontFamily: 'Space Mono, monospace',
-                    fontSize: 11,
-                    padding: '8px 4px',
+                    fontSize: 10,
+                    padding: '6px 2px',
                     borderRadius: 6,
                     cursor: 'pointer',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    gap: 2,
+                    gap: 1,
                     transition: 'all 0.15s',
                     boxShadow: active ? '0 2px 6px rgba(216,67,115,0.3)' : 'none',
                     minHeight: 44,
                   }}
                 >
-                  <span style={{ fontSize: 18 }} aria-hidden="true">{cfg.icon}</span>
+                  <span style={{ fontSize: 16 }} aria-hidden="true">{cfg.icon}</span>
                   {cfg.label}
                 </button>
               )
@@ -55,7 +55,7 @@ export function ToolPicker() {
       {/* Brush shape */}
       <div>
         <div className="section-label">Shape</div>
-        <div role="radiogroup" aria-label="Brush shape" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4 }}>
+        <div role="radiogroup" aria-label="Brush shape" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 4 }}>
           {BRUSH_SHAPES.map((bs) => {
             const active = brushShape === bs.type
             return (
@@ -66,12 +66,12 @@ export function ToolPicker() {
                 aria-label={bs.label}
                 onClick={() => setBrushShape(bs.type)}
                 style={{
-                  padding: '8px 4px',
+                  padding: '6px 2px',
                   border: `2px solid ${active ? '#d84373' : '#c8bfb6'}`,
                   background: active ? '#d84373' : '#faf7f4',
                   color: active ? 'white' : '#6b5e5e',
                   fontFamily: 'Space Mono, monospace',
-                  fontSize: 11,
+                  fontSize: 10,
                   borderRadius: 6,
                   cursor: 'pointer',
                   fontWeight: active ? 'bold' : 'normal',
@@ -79,12 +79,12 @@ export function ToolPicker() {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  gap: 2,
+                  gap: 1,
                   boxShadow: active ? '0 2px 6px rgba(216,67,115,0.3)' : 'none',
                   minHeight: 44,
                 }}
               >
-                <span style={{ fontSize: 18 }} aria-hidden="true">{bs.icon}</span>
+                <span style={{ fontSize: 16 }} aria-hidden="true">{bs.icon}</span>
                 {bs.label}
               </button>
             )

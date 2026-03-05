@@ -8,28 +8,31 @@ export function ColorPalette() {
     <div>
       <div className="section-label">Color</div>
       <div role="radiogroup" aria-label="Paint color" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 6 }}>
-        {PALETTE.map((c) => {
-          const active = color === c
+        {PALETTE.map((pc) => {
+          const active = color === pc.hex
           return (
-            <button
-              key={c}
-              role="radio"
-              aria-checked={active}
-              aria-label={`Color ${c}`}
-              onClick={() => setColor(c)}
-              style={{
-                width: 32,
-                height: 32,
-                borderRadius: '50%',
-                background: c,
-                border: `3px solid ${active ? '#2d2222' : 'transparent'}`,
-                cursor: 'pointer',
-                transform: active ? 'scale(1.15)' : 'scale(1)',
-                transition: 'transform 0.1s, border-color 0.1s',
-                padding: 0,
-                boxShadow: active ? '0 2px 8px rgba(0,0,0,0.25)' : '0 1px 3px rgba(0,0,0,0.1)',
-              }}
-            />
+            <div key={pc.hex} className="color-swatch-wrap">
+              <button
+                role="radio"
+                aria-checked={active}
+                aria-label={pc.name}
+                onClick={() => setColor(pc.hex)}
+                className="color-swatch"
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: '50%',
+                  background: pc.hex,
+                  border: `3px solid ${active ? '#2d2222' : 'transparent'}`,
+                  cursor: 'pointer',
+                  transform: active ? 'scale(1.15)' : 'scale(1)',
+                  transition: 'transform 0.1s, border-color 0.1s',
+                  padding: 0,
+                  boxShadow: active ? '0 2px 8px rgba(0,0,0,0.25)' : '0 1px 3px rgba(0,0,0,0.1)',
+                }}
+              />
+              <span className="color-tooltip">{pc.name}</span>
+            </div>
           )
         })}
       </div>

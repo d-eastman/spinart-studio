@@ -108,6 +108,8 @@ export interface Renderer {
   clearSettled(): void
   /** Produce a PNG blob of the current state */
   exportBitmap(params: DrawParams): Promise<Blob>
+  /** Produce an animated GIF of the painting spinning */
+  exportGif(bgColor: string, size: number, frames?: number, delayMs?: number): Promise<Blob>
   /** Paint directly onto the settled bitmap at a screen position (brush mode) */
   stampBrush(x: number, y: number, radius: number, shape: BrushShape, rgb: RGB, alpha: number, wheelAngle: number): void
   /** Resize the renderer (e.g. on window resize) */

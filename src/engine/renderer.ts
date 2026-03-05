@@ -1,5 +1,6 @@
 import type { Renderer, DrawParams, Particle, BrushShape, RGB } from './types'
 import { rgbToCss } from '@/utils/colorUtils'
+import { GIFEncoder, quantize, applyPalette } from 'gifenc'
 
 /** Draw a brush shape onto a context */
 function drawShape(ctx: CanvasRenderingContext2D, x: number, y: number, r: number, shape: BrushShape, color: string) {
@@ -224,6 +225,64 @@ export class Canvas2DRenderer implements Renderer {
       const a = p.stuck ? p.alpha * (1 - p.stuckProgress) : p.alpha
       drawBrushShape(pCtx, p.x, p.y, p.radius, p, a)
     }
+  }
+
+  async exportGif(bgColor: string, size: number, frames = 36, delayMs = 80): Promise<Blob> {
+    const cx = size / 2
+    const cy = size / 2
+
+    // Use a smaller size for the GIF to keep file size reasonable
+    const gifSize = Math.min(size, 400)
+    const scale = gifSize / size
+
+    const gif = GIFEncoder()
+    const exp = document.createElement('canvas')
+    exp.width = gifSize
+    exp.height = gifSize
+    const ectx = exp.getContext('2d')!
+
+    for (let i = 0; i < frames; i++) {
+      const angle = (i / frames) * Math.PI * 2
+
+      ectx.clearRect(0, 0, gifSize, gifSize)
+      ectx.save()
+
+      // Clip to circle
+      ectx.beginPath()
+      ectx.arc(gifSize / 2, gifSize / 2, gifSize / 2, 0, Math.PI * 2)
+      ectx.clip()
+
+      // Background
+      ectx.fillStyle = bgColor
+      ectx.fillRect(0, 0, gifSize, gifSize)
+
+      // Draw settled paint rotated
+      ectx.save()
+      ectx.translate(gifSize / 2, gifSize / 2)
+      ectx.scale(scale, scale)
+      ectx.rotate(angle)
+      ectx.translate(-cx, -cy)
+      ectx.drawImage(this.settled, 0, 0)
+      ectx.restore()
+
+      ectx.restore()
+
+      // Get pixel data and quantize for GIF
+      const imageData = ectx.getImageData(0, 0, gifSize, gifSize)
+      const { data } = imageData
+      const palette = quantize(data, 256)
+      const index = applyPalette(data, palette)
+
+      gif.writeFrame(index, gifSize, gifSize, {
+        palette,
+        delay: delayMs,
+        repeat: 0,
+      })
+    }
+
+    gif.finish()
+    const bytes = gif.bytes()
+    return new Blob([bytes.buffer as ArrayBuffer], { type: 'image/gif' })
   }
 
   async exportBitmap({ particles, wheelAngle, bgColor, size }: DrawParams): Promise<Blob> {

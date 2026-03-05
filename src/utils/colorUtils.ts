@@ -27,25 +27,54 @@ export function blendColors(a: RGB, b: RGB, t: number): RGB {
   }
 }
 
-export const PALETTE: string[] = [
+export interface PaletteColor {
+  hex: string
+  name: string
+}
+
+export const PALETTE: PaletteColor[] = [
   // Reds & pinks
-  '#ff4d6d', '#e63946', '#d84373', '#ff006e',
+  { hex: '#ff4d6d', name: 'Rose' },
+  { hex: '#e63946', name: 'Red' },
+  { hex: '#d84373', name: 'Raspberry' },
+  { hex: '#ff006e', name: 'Hot Pink' },
   // Oranges
-  '#f77f00', '#fb8500', '#ff9e00',
+  { hex: '#f77f00', name: 'Orange' },
+  { hex: '#fb8500', name: 'Tangerine' },
+  { hex: '#ff9e00', name: 'Amber' },
   // Yellows
-  '#ffd166', '#e9c46a', '#ffea00',
+  { hex: '#ffd166', name: 'Sunflower' },
+  { hex: '#e9c46a', name: 'Gold' },
+  { hex: '#ffea00', name: 'Lemon' },
   // Greens
-  '#06d6a0', '#2dc653', '#007f5f', '#80b918',
+  { hex: '#06d6a0', name: 'Mint' },
+  { hex: '#2dc653', name: 'Green' },
+  { hex: '#007f5f', name: 'Forest' },
+  { hex: '#80b918', name: 'Lime' },
   // Blues
-  '#118ab2', '#0077b6', '#00b4d8', '#48cae4',
+  { hex: '#118ab2', name: 'Ocean' },
+  { hex: '#0077b6', name: 'Blue' },
+  { hex: '#00b4d8', name: 'Sky' },
+  { hex: '#48cae4', name: 'Powder' },
   // Purples & violets
-  '#9b5de5', '#7209b7', '#560bad', '#b5179e',
+  { hex: '#9b5de5', name: 'Violet' },
+  { hex: '#7209b7', name: 'Purple' },
+  { hex: '#560bad', name: 'Indigo' },
+  { hex: '#b5179e', name: 'Magenta' },
   // Browns & earth tones
-  '#a47148', '#6f4e37',
+  { hex: '#a47148', name: 'Caramel' },
+  { hex: '#6f4e37', name: 'Coffee' },
   // Neutrals & metallics
-  '#ffffff', '#c0c0c0', '#808080', '#2d2222',
+  { hex: '#ffffff', name: 'White' },
+  { hex: '#c0c0c0', name: 'Silver' },
+  { hex: '#808080', name: 'Grey' },
+  { hex: '#2d2222', name: 'Black' },
   // Teals & cyans
-  '#a8dadc', '#40e0d0', '#20b2aa',
+  { hex: '#a8dadc', name: 'Ice' },
+  { hex: '#40e0d0', name: 'Turquoise' },
+  { hex: '#20b2aa', name: 'Teal' },
   // Pastels
-  '#ffafcc', '#bde0fe', '#caffbf',
+  { hex: '#ffafcc', name: 'Blush' },
+  { hex: '#bde0fe', name: 'Baby Blue' },
+  { hex: '#caffbf', name: 'Pistachio' },
 ]
