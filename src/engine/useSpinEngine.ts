@@ -47,7 +47,7 @@ export function useSpinEngine(
     )
 
     // Send init size to worker
-    const initMsg = { type: 'INIT', size } as WorkerInMessage & { type: 'INIT'; size: number }
+    const initMsg: WorkerInMessage = { type: 'INIT', size }
     workerRef.current.postMessage(initMsg)
 
     workerRef.current.onmessage = (e: MessageEvent<WorkerOutMessage>) => {

@@ -36,7 +36,6 @@ function drawShape(ctx: CanvasRenderingContext2D, x: number, y: number, r: numbe
       break
     case 'heart': {
       ctx.beginPath()
-      const hr = r * 0.55
       ctx.moveTo(x, y + r * 0.3)
       ctx.bezierCurveTo(x, y - r * 0.4, x - r, y - r * 0.4, x - r, y + r * 0.1)
       ctx.bezierCurveTo(x - r, y + r * 0.55, x, y + r, x, y + r)

@@ -54,7 +54,7 @@ function rpmToOmega(rpm: number): number {
   return (rpm / 60) * Math.PI * 2
 }
 
-export const useSpinStore = create<SpinState>((set, get) => ({
+export const useSpinStore = create<SpinState>((set) => ({
   // Color
   color: PALETTE[0].hex,
   setColor: (color) => set({ color }),

@@ -25,10 +25,9 @@ self.onmessage = (e: MessageEvent<WorkerInMessage>) => {
   const msg = e.data
 
   if (msg.type === 'INIT') {
-    const m = msg as WorkerInMessage & { type: 'INIT' }
-    CX = m.size / 2
-    CY = m.size / 2
-    WHEEL_RADIUS = m.size / 2
+    CX = msg.size / 2
+    CY = msg.size / 2
+    WHEEL_RADIUS = msg.size / 2
     wheelAngle = 0
     return
   }

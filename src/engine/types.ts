@@ -119,6 +119,7 @@ export interface Renderer {
 // ─── Physics worker messages ─────────────────────────────────────────────────
 
 export type WorkerInMessage =
+  | { type: 'INIT'; size: number }
   | { type: 'TICK'; dt: number; omega: number; direction: 1 | -1; viscosity: number }
   | { type: 'SPAWN'; particles: Particle[] }
   | { type: 'CLEAR' }
