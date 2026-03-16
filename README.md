@@ -2,6 +2,12 @@
 
 A browser-based spin-art painting app that simulates the physics of a spinning wheel with virtual paint. Drop, spray, splash, or draw paint onto a rotating canvas and watch centrifugal force fling it into beautiful patterns.
 
+[**Try it now!**](https://d-eastman.github.io/spinart-studio/)
+
+| Static (PNG) | Animated (GIF) |
+|:---:|:---:|
+| ![SpinArt sample PNG](sample.png) | ![SpinArt sample GIF](sample.gif) |
+
 ## Features
 
 - **Physics simulation** — centrifugal force, viscous drag, and surface adhesion modeled in a Web Worker
