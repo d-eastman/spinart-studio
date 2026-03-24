@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { WheelCanvas } from '@/components/WheelCanvas'
 import { ColorPalette } from '@/components/ColorPalette'
 import { ToolPicker } from '@/components/ToolPicker'
@@ -140,6 +141,28 @@ function TopBar() {
       >
         GIF
       </button>
+
+      <div style={{ width: 1, height: 24, background: '#c8bfb6' }} aria-hidden="true" />
+
+      <Link
+        to="/gallery"
+        aria-label="View gallery"
+        style={{
+          padding: '8px 18px',
+          border: '2px solid #c8bfb6',
+          borderRadius: 20,
+          background: 'transparent',
+          color: '#6b5e5e',
+          fontFamily: 'Space Mono, monospace',
+          fontSize: 13,
+          letterSpacing: 1,
+          textDecoration: 'none',
+          cursor: 'pointer',
+          transition: 'all 0.15s',
+        }}
+      >
+        GALLERY
+      </Link>
     </nav>
   )
 }
