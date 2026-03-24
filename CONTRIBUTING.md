@@ -4,7 +4,7 @@ Want to showcase your spin-art creation? Follow these steps to add it to the com
 
 ## Steps
 
-1. **Create your artwork** using [SpinArt Studio](https://anthropics.github.io/spinart-studio/) and export it as a PNG or GIF.
+1. **Create your artwork** using [SpinArt Studio](https://d-eastman.github.io/spinart-studio/) and export it as a PNG or GIF.
 
 2. **Fork this repository** and clone your fork locally.
 

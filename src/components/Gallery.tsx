@@ -72,7 +72,7 @@ export function Gallery() {
         }}>
           Community spin-art creations. Want to add yours?{' '}
           <a
-            href="https://github.com/anthropics/spinart-studio/blob/main/CONTRIBUTING.md"
+            href="https://github.com/d-eastman/spinart-studio/blob/main/CONTRIBUTING.md"
             target="_blank"
             rel="noopener noreferrer"
             style={{ color: '#d84373' }}
